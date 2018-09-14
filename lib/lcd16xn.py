@@ -1,4 +1,6 @@
 # Date : 2 sep, 2018
+# @author : R. Lokesh
+# @contact : lokeshbalaji.pirate@gmail.com
 import machine
 import time
 
@@ -45,7 +47,7 @@ Rs = 0b00000001
 class lcd:
    #initializes objects and lcd
 
-   def __init__(self,i2c_handle,address):
+   def __init__(self, i2c_handle, address = 39):
          self.lcd_device = i2c_handle
          self.ADDRESS = address
          self.lcd_write(0x03)
@@ -64,19 +66,19 @@ class lcd:
          buf=bytearray()
          k=data | En | LCD_BACKLIGHT
          buf.append(k)
-         self.lcd_device.writeto(self.ADDRESS,buf)
+         self.lcd_device.writeto(self.ADDRESS, buf)
          time.sleep(.0005)
          buf=bytearray()
          k=((data & ~En) | LCD_BACKLIGHT)
          buf.append(k)
-         self.lcd_device.writeto(self.ADDRESS,buf)
+         self.lcd_device.writeto(self.ADDRESS, buf)
          time.sleep(.0001)
 
    def lcd_write_four_bits(self, data):
          buf=bytearray()
          k=data | LCD_BACKLIGHT
          buf.append(k)
-         self.lcd_device.writeto(self.ADDRESS,buf)
+         self.lcd_device.writeto(self.ADDRESS, buf)
          self.lcd_strobe(data)
 
    # write a command to lcd
